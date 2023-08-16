@@ -76,28 +76,52 @@ async function loadJson() {
         for (gi=0; gi<48; gi++){
         let gDiv = graphDivs[gi]
         gDiv.on('plotly_selected', function(eventData) {
-            // Get lower and upper bounds of selected bursts
-            let xselect = [eventData.range.x[0], eventData.range.x[1]];
-            let xburst = [];
-            let yburst = [];
-            for (xi=0; xi<x.length; xi++){
-                if (gDiv.data[0]['x'][xi] >= xselect[0] && gDiv.data[0]['x'][xi] <= xselect[1]){
-                    xburst.push(gDiv.data[0]['x'][xi]);
-                    yburst.push(gDiv.data[0]['y'][xi]);
+            try {
+                // Get lower and upper bounds of selected bursts
+                let xselect = [eventData.range.x[0], eventData.range.x[1]];
+                let xburst = [];
+                let yburst = [];
+                for (xi = 0; xi < x.length; xi++) {
+                    if (gDiv.data[0]['x'][xi] >= xselect[0] && gDiv.data[0]['x'][xi] <= xselect[1]) {
+                        xburst.push(gDiv.data[0]['x'][xi]);
+                        yburst.push(gDiv.data[0]['y'][xi]);
+                    }
+                };
+                // Update red burst signal
+                gDiv.data[1]['x'] = xburst;
+                gDiv.data[1]['y'] = yburst;
+                // Replot updated bursts
+                var replot = () => {
+                    // Bug in plotly that sometimes leads to infinite
+                    //   recursion. Timing out to fix.
+                    setTimeout(() => {
+                        Plotly.redraw(gDiv, [1]);
+                    }, 200);
                 }
-            };
-            // Update red burst signal
-            gDiv.data[1]['x'] = xburst;
-            gDiv.data[1]['y'] = yburst;
-            // Replot updated bursts
-            var replot = () => {
-                // Bug in plotly that sometimes leads to infinite
-                //   recursion. Timing out to fix.
-                setTimeout(() => {
-                    Plotly.redraw(gDiv, [1]);
-                }, 200);
+                replot();
+            } catch (error) {// Get lower and upper bounds of selected bursts
+                let xselect = [];
+                let xburst = [];
+                let yburst = [];
+                for (xi = 0; xi < x.length; xi++) {
+                    if (gDiv.data[0]['x'][xi] >= xselect[0] && gDiv.data[0]['x'][xi] <= xselect[1]) {
+                        xburst.push(gDiv.data[0]['x'][xi]);
+                        yburst.push(gDiv.data[0]['y'][xi]);
+                    }
+                };
+                // Update red burst signal
+                gDiv.data[1]['x'] = xburst;
+                gDiv.data[1]['y'] = yburst;
+                // Replot updated bursts
+                var replot = () => {
+                    // Bug in plotly that sometimes leads to infinite
+                    //   recursion. Timing out to fix.
+                    setTimeout(() => {
+                        Plotly.redraw(gDiv, [1]);
+                    }, 200);
+                }
+                replot();
             }
-            replot();
             });
         };
     }));
