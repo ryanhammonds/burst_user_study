@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="contact form example">
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
+    <title>Contact Form Example</title>
+</head>
+<body>
+<!-- START HERE -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Style The Contact Form How Ever You Prefer -->
+  <link rel="stylesheet" href="style.css">
+
+  <form class="gform pure-form pure-form-stacked" method="POST" data-email="example@email.net"
+  action="https://script.google.com/macros/s/AKfycbxeYQjl8_YoNyDGp2jO8MkPWs6D3gJ7D5__FKiZgsUoPn4xXhW7aqmEG8432JQZjBYDew/exec">
+    <!-- change the form action to your script url -->
+    <h2 class="content-head is-center">Instructions</h2>
+    <aside>
+         <p>
+             Select bursts (oscillations) for each row by dragging a box around them.
+         </p>
+     </aside>
+
+    <div class="center" id="centerDiv">
+    </div>
+
+    <h2 class="content-head is-center">Contact Information</h2>
+    <div class="form-elements">
+      <fieldset class="pure-group">
+        <label for="name">Name: </label>
+        <input id="name" name="name" placeholder="First, Last" />
+      </fieldset>
+
+      <fieldset class="pure-group">
+        <label for="message">Comments: </label>
+        <textarea id="message" name="message" rows="10"
+        placeholder="Anything we should know..."></textarea>
+      </fieldset>
+
+      <fieldset class="pure-group">
+        <label for="email">Email Address:</label>
+        <input id="email" name="email" type="email" value=""
+        required placeholder="your.name@email.com"/>
+      </fieldset>
+
+
+      <fieldset class="pure-group honeypot-field">
+        <label for="honeypot">Prevent spam.</label>
+        <input id="honeypot" type="text" name="honeypot" value="" />
+      </fieldset>
+
+      <button class="button-success pure-button button-xlarge">
+        <i class="fa fa-paper-plane"></i>&nbsp;Send</button>
+    </div>
+
+    <!-- Customise the Thankyou Message People See when they submit the form: -->
+    <!-- <div class="thankyou_message" style="display:none;">
+      <h2><em>Thanks</em> for contacting us!
+        We will get back to you soon!</h2>
+    </div> -->
+
+  </form>
+
+  <!-- Submit the Form to Google Using "AJAX" -->
+  <!-- <script data-cfasync="false" src="form-submission-handler.js"></script> -->
+
+<!-- END -->
+</body>
+<script type="text/javascript" src="./index.js"></script>
+
+</html>
